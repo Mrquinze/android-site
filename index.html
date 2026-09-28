@@ -1,0 +1,237 @@
+<p><br></p>
+<p>```html</p>
+<p>&lt;!******* html&gt;</p>
+<p>&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;</p>
+<p>&lt;head&gt;</p>
+<p>&lt;meta charset=&quot;UTF-8&quot;&gt;</p>
+<p>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</p>
+<p>&lt;title&gt;****** Apps&lt;/title&gt;</p>
+<p>&lt;style&gt;</p>
+<p>&nbsp; * { box-sizing: border-box; }</p>
+<p>&nbsp; html[data-theme=&quot;light&quot;] {</p>
+<p>&nbsp; &nbsp; --bg:#F1F3F4; --surface:#FFFFFF; --surface-variant:#E8EAED;</p>
+<p>&nbsp; &nbsp; --primary:#1A73E8; --on-primary:#FFFFFF;</p>
+<p>&nbsp; &nbsp; --text:#202124; --text-secondary:#5F6368;</p>
+<p>&nbsp; }</p>
+<p>&nbsp; html[data-theme=&quot;dark&quot;] {</p>
+<p>&nbsp; &nbsp; --bg:#131314; --surface:#1E1F20; --surface-variant:#2A2B2E;</p>
+<p>&nbsp; &nbsp; --primary:#A8C7FA; --on-primary:#062E6F;</p>
+<p>&nbsp; &nbsp; --text:#E3E3E3; --text-secondary:#9AA0A6;</p>
+<p>&nbsp; }</p>
+<p>&nbsp; body { margin:0; font-family:&apos;Segoe UI&apos;, Roboto, system-ui, sans-serif;</p>
+<p>&nbsp; &nbsp; background:var(--bg); color:var(--text); transition:.3s; }</p>
+<p>&nbsp; .header { text-align:center; padding:44px 16px 16px; position:relative; }</p>
+<p>&nbsp; .theme-toggle { position:absolute; top:14px; right:16px; width:40px; height:40px;</p>
+<p>&nbsp; &nbsp; border-radius:50%; border:none; background:var(--surface); font-size:17px; cursor:pointer;</p>
+<p>&nbsp; &nbsp; box-shadow:0 1px 3px rgba(0,0,0,.15); }</p>
+<p>&nbsp; .clock { font-size:54px; }</p>
+<p>&nbsp; .date { font-size:14px; color:var(--text-secondary); }</p>
+<p>&nbsp; .glance { display:inline-block; margin-top:12px; font-size:12px; color:var(--text-secondary);</p>
+<p>&nbsp; &nbsp; background:var(--surface); padding:7px 16px; border-radius:20px; }</p>
+<p>&nbsp; .chips { display:flex; gap:8px; overflow-x:auto; padding:10px 16px; scrollbar-width:none; }</p>
+<p>&nbsp; .chips::-webkit-scrollbar { display:none; }</p>
+<p>&nbsp; .chip { flex:0 0 auto; padding:8px 14px; border-radius:20px; background:var(--surface-variant);</p>
+<p>&nbsp; &nbsp; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; }</p>
+<p>&nbsp; .chip.active { background:var(--primary); color:var(--on-primary); }</p>
+<p>&nbsp; .grid-wrap { padding:0 16px 120px; }</p>
+<p>&nbsp; .count { font-size:11px; color:var(--text-secondary); margin:8px 4px; }</p>
+<p>&nbsp; .app-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:12px; }</p>
+<p>&nbsp; .app-card { background:var(--surface); border-radius:18px; padding:14px; display:flex; gap:12px;</p>
+<p>&nbsp; &nbsp; box-shadow:0 1px 2px rgba(0,0,0,.07); }</p>
+<p>&nbsp; .app-icon { width:42px; height:42px; border-radius:12px; flex-shrink:0; display:flex;</p>
+<p>&nbsp; &nbsp; align-items:center; justify-content:center; color:#fff; font-weight:700; }</p>
+<p>&nbsp; .name { font-size:14px; font-weight:600; }</p>
+<p>&nbsp; .cat { font-size:10px; font-weight:700; color:var(--primary); text-transform:uppercase; margin:2px 0 4px; }</p>
+<p>&nbsp; .desc { font-size:12px; color:var(--text-secondary); }</p>
+<p>&nbsp; .dock { position:fixed; bottom:0; left:0; right:0; padding:12px 16px 20px;</p>
+<p>&nbsp; &nbsp; background:linear-gradient(to top, var(--bg) 60%, transparent); }</p>
+<p>&nbsp; .search-bar { display:flex; align-items:center; gap:10px; background:var(--surface);</p>
+<p>&nbsp; &nbsp; border-radius:26px; padding:12px 18px; max-width:600px; margin:0 auto;</p>
+<p>&nbsp; &nbsp; box-shadow:0 2px 10px rgba(0,0,0,.18); }</p>
+<p>&nbsp; .search-bar input { flex:1; border:none; background:transparent; outline:none; font-size:14px; color:var(--text); }</p>
+<p>&nbsp; .empty { text-align:center; color:var(--text-secondary); padding:30px; }</p>
+<p>&lt;/style&gt;</p>
+<p>&lt;/head&gt;</p>
+<p>&lt;body&gt;</p>
+<p><br></p>
+<p>&lt;*** class=&quot;header&quot;&gt;</p>
+<p>&nbsp; &lt;button class=&quot;theme-toggle&quot; id=&quot;themeToggle&quot;&gt;🌙&lt;/button&gt;</p>
+<p>&nbsp; &lt;div class=&quot;clock&quot; id=&quot;clock&quot;&gt;--:--&lt;/div&gt;</p>
+<p>&nbsp; &lt;div class=&quot;date&quot; id=&quot;date&quot;&gt;&lt;/div&gt;</p>
+<p>&nbsp; &lt;*** class=&quot;glance&quot;&gt;60 apps curated for techies &mdash; no bloat&lt;/div&gt;</p>
+<p>&lt;/div&gt;</p>
+<p><br></p>
+<p>&lt;div class=&quot;chips&quot; id=&quot;chips&quot;&gt;&lt;/div&gt;</p>
+<p><br></p>
+<p>&lt;div class=&quot;grid-wrap&quot;&gt;</p>
+<p>&nbsp; &lt;div class=&quot;count&quot;&gt;&lt;span id=&quot;count&quot;&gt;60&lt;/span&gt; apps&lt;/div&gt;</p>
+<p>&nbsp; &lt;div class=&quot;app-grid&quot; id=&quot;appGrid&quot;&gt;&lt;/div&gt;</p>
+<p>&lt;/div&gt;</p>
+<p><br></p>
+<p>&lt;div class=&quot;dock&quot;&gt;</p>
+<p>&nbsp; &lt;div class=&quot;search-bar&quot;&gt;</p>
+<p>&nbsp; &nbsp; 🔍 &lt;input id=&quot;search&quot; placeholder=&quot;Search apps...&quot;&gt;</p>
+<p>&nbsp; &lt;/div&gt;</p>
+<p>&lt;/div&gt;</p>
+<p><br></p>
+<p>&lt;script&gt;</p>
+<p>const palette = [&quot;#4285F4&quot;,&quot;#EA4335&quot;,&quot;#FBBC05&quot;,&quot;#34A853&quot;,&quot;#673AB7&quot;,&quot;#009688&quot;,&quot;#FF7043&quot;,&quot;#3F51B5&quot;,&quot;#00ACC1&quot;,&quot;#8E24AA&quot;];</p>
+<p><br></p>
+<p>const apps = [</p>
+<p>&nbsp; // Terminal &amp; Shell</p>
+<p>&nbsp; {n:&quot;Termux&quot;,c:&quot;Terminal&quot;,d:&quot;Full Linux terminal, no root needed&quot;},</p>
+<p>&nbsp; {n:&quot;JuiceSSH&quot;,c:&quot;Terminal&quot;,d:&quot;Polished SSH client with session manager&quot;},</p>
+<p>&nbsp; {n:&quot;Termius&quot;,c:&quot;Terminal&quot;,d:&quot;Cross platform SSH client with sync&quot;},</p>
+<p>&nbsp; {n:&quot;UserLAnd&quot;,c:&quot;Terminal&quot;,d:&quot;Run Linux distros without root&quot;},</p>
+<p>&nbsp; {n:&quot;ConnectBot&quot;,c:&quot;Terminal&quot;,d:&quot;Open source SSH and Telnet client&quot;},</p>
+<p>&nbsp; {n:&quot;Andronix&quot;,c:&quot;Terminal&quot;,d:&quot;Installs Linux distros in Termux&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Development</p>
+<p>&nbsp; {n:&quot;AIDE&quot;,c:&quot;Development&quot;,d:&quot;Full Android IDE, builds APKs on device&quot;},</p>
+<p>&nbsp; {n:&quot;Acode&quot;,c:&quot;Development&quot;,d:&quot;Fast open source code editor&quot;},</p>
+<p>&nbsp; {n:&quot;Pydroid 3&quot;,c:&quot;Development&quot;,d:&quot;Python 3 IDE with pip support&quot;},</p>
+<p>&nbsp; {n:&quot;Spck Editor&quot;,c:&quot;Development&quot;,d:&quot;Code editor with live preview and Git&quot;},</p>
+<p>&nbsp; {n:&quot;CxxDroid&quot;,c:&quot;Development&quot;,d:&quot;C/C++ compiler and IDE&quot;},</p>
+<p>&nbsp; {n:&quot;MGit&quot;,c:&quot;Development&quot;,d:&quot;Git client for repo management&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Networking</p>
+<p>&nbsp; {n:&quot;Fing&quot;,c:&quot;Networking&quot;,d:&quot;Network scanner and device discovery&quot;},</p>
+<p>&nbsp; {n:&quot;PingTools&quot;,c:&quot;Networking&quot;,d:&quot;Ping, traceroute and port scan toolkit&quot;},</p>
+<p>&nbsp; {n:&quot;WiFi Analyzer&quot;,c:&quot;Networking&quot;,d:&quot;Visualize Wi-Fi channels and signal&quot;},</p>
+<p>&nbsp; {n:&quot;Packet Capture&quot;,c:&quot;Networking&quot;,d:&quot;Capture and inspect network traffic&quot;},</p>
+<p>&nbsp; {n:&quot;Router Keygen&quot;,c:&quot;Networking&quot;,d:&quot;Recover default router passwords&quot;},</p>
+<p>&nbsp; {n:&quot;NetX&quot;,c:&quot;Networking&quot;,d:&quot;All in one network diagnostics suite&quot;},</p>
+<p><br></p>
+<p>&nbsp; // System Monitoring</p>
+<p>&nbsp; {n:&quot;CPU-Z&quot;,c:&quot;System&quot;,d:&quot;Detailed hardware and SoC info&quot;},</p>
+<p>&nbsp; {n:&quot;AIDA64&quot;,c:&quot;System&quot;,d:&quot;In depth diagnostics and benchmarks&quot;},</p>
+<p>&nbsp; {n:&quot;Device Info HW&quot;,c:&quot;System&quot;,d:&quot;Hardware and sensor info reader&quot;},</p>
+<p>&nbsp; {n:&quot;GSam Battery Monitor&quot;,c:&quot;System&quot;,d:&quot;Per-app battery usage stats&quot;},</p>
+<p>&nbsp; {n:&quot;Sensor Box&quot;,c:&quot;System&quot;,d:&quot;Test every sensor your phone has&quot;},</p>
+<p>&nbsp; {n:&quot;Status&quot;,c:&quot;System&quot;,d:&quot;Customizable system status widget&quot;},</p>
+<p><br></p>
+<p>&nbsp; // **** Management</p>
+<p>&nbsp; {n:&quot;Solid Explorer&quot;,c:&quot;Files&quot;,d:&quot;Dual pane manager with cloud support&quot;},</p>
+<p>&nbsp; {n:&quot;Material Files&quot;,c:&quot;Files&quot;,d:&quot;Open source Material Design explorer&quot;},</p>
+<p>&nbsp; {n:&quot;MiXplorer&quot;,c:&quot;Files&quot;,d:&quot;Feature rich, archive and FTP support&quot;},</p>
+<p>&nbsp; {n:&quot;X-plore&quot;,c:&quot;Files&quot;,d:&quot;Dual pane with a built in server&quot;},</p>
+<p>&nbsp; {n:&quot;Total Commander&quot;,c:&quot;Files&quot;,d:&quot;Classic dual pane, plugin extensible&quot;},</p>
+<p>&nbsp; {n:&quot;Amaze File Manager&quot;,c:&quot;Files&quot;,d:&quot;Lightweight open source explorer&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Automation</p>
+<p>&nbsp; {n:&quot;Tasker&quot;,c:&quot;Automation&quot;,d:&quot;The ultimate automation engine&quot;},</p>
+<p>&nbsp; {n:&quot;MacroDroid&quot;,c:&quot;Automation&quot;,d:&quot;Beginner friendly automation macros&quot;},</p>
+<p>&nbsp; {n:&quot;Automate&quot;,c:&quot;Automation&quot;,d:&quot;Visual flowchart automation builder&quot;},</p>
+<p>&nbsp; {n:&quot;Button Mapper&quot;,c:&quot;Automation&quot;,d:&quot;Remap hardware buttons to actions&quot;},</p>
+<p>&nbsp; {n:&quot;Join&quot;,c:&quot;Automation&quot;,d:&quot;Sync and automate across devices&quot;},</p>
+<p>&nbsp; {n:&quot;AutoNotification&quot;,c:&quot;Automation&quot;,d:&quot;Tasker plugin for notification triggers&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Privacy &amp; Security</p>
+<p>&nbsp; {n:&quot;NetGuard&quot;,c:&quot;Privacy&quot;,d:&quot;No root firewall for app control&quot;},</p>
+<p>&nbsp; {n:&quot;KeePassDX&quot;,c:&quot;Privacy&quot;,d:&quot;Offline password manager&quot;},</p>
+<p>&nbsp; {n:&quot;Aegis Authenticator&quot;,c:&quot;Privacy&quot;,d:&quot;Secure 2FA token manager&quot;},</p>
+<p>&nbsp; {n:&quot;Exodus Privacy&quot;,c:&quot;Privacy&quot;,d:&quot;Scan apps for hidden trackers&quot;},</p>
+<p>&nbsp; {n:&quot;Orbot&quot;,c:&quot;Privacy&quot;,d:&quot;Tor proxy for anonymous routing&quot;},</p>
+<p>&nbsp; {n:&quot;Bitwarden&quot;,c:&quot;Privacy&quot;,d:&quot;Open source password vault&quot;},</p>
+<p><br></p>
+<p>&nbsp; // VPN &amp; Proxy</p>
+<p>&nbsp; {n:&quot;WireGuard&quot;,c:&quot;VPN&quot;,d:&quot;Fast modern VPN protocol client&quot;},</p>
+<p>&nbsp; {n:&quot;OpenVPN Connect&quot;,c:&quot;VPN&quot;,d:&quot;Official OpenVPN client&quot;},</p>
+<p>&nbsp; {n:&quot;ProtonVPN&quot;,c:&quot;VPN&quot;,d:&quot;Privacy focused VPN service&quot;},</p>
+<p>&nbsp; {n:&quot;InviZible Pro&quot;,c:&quot;VPN&quot;,d:&quot;Combines Tor, I2P and DNSCrypt&quot;},</p>
+<p>&nbsp; {n:&quot;AFWall+&quot;,c:&quot;VPN&quot;,d:&quot;Root based iptables firewall&quot;},</p>
+<p>&nbsp; {n:&quot;Shadowsocks&quot;,c:&quot;VPN&quot;,d:&quot;Lightweight SOCKS5 secure proxy&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Root Tools</p>
+<p>&nbsp; {n:&quot;Magisk&quot;,c:&quot;Root&quot;,d:&quot;Systemless root and module manager&quot;},</p>
+<p>&nbsp; {n:&quot;Kernel Adiutor&quot;,c:&quot;Root&quot;,d:&quot;Tweak kernel parameters live&quot;},</p>
+<p>&nbsp; {n:&quot;Titanium Backup&quot;,c:&quot;Root&quot;,d:&quot;Full app and data backup with root&quot;},</p>
+<p>&nbsp; {n:&quot;SD Maid&quot;,c:&quot;Root&quot;,d:&quot;System cleaning and app control&quot;},</p>
+<p>&nbsp; {n:&quot;BusyBox&quot;,c:&quot;Root&quot;,d:&quot;Core Unix utilities for Android&quot;},</p>
+<p>&nbsp; {n:&quot;TWRP App&quot;,c:&quot;Root&quot;,d:&quot;Manage custom recovery in-app&quot;},</p>
+<p><br></p>
+<p>&nbsp; // Launchers &amp; Widgets</p>
+<p>&nbsp; {n:&quot;Nova Launcher&quot;,c:&quot;Launcher&quot;,d:&quot;Deeply customizable classic launcher&quot;},</p>
+<p>&nbsp; {n:&quot;Lawnchair&quot;,c:&quot;Launcher&quot;,d:&quot;Open source Pixel launcher alternative&quot;},</p>
+<p>&nbsp; {n:&quot;Niagara Launcher&quot;,c:&quot;Launcher&quot;,d:&quot;Minimalist single hand launcher&quot;},</p>
+<p>&nbsp; {n:&quot;KWGT&quot;,c:&quot;Launcher&quot;,d:&quot;Build fully custom home widgets&quot;},</p>
+<p>&nbsp; {n:&quot;KLWP&quot;,c:&quot;Launcher&quot;,d:&quot;Design animated live wallpapers&quot;},</p>
+<p>&nbsp; {n:&quot;Zooper Widget&quot;,c:&quot;Launcher&quot;,d:&quot;Data rich customizable widgets&quot;},</p>
+<p>];</p>
+<p><br></p>
+<p>const categories = [&quot;All&quot;, ...new Set(apps.map(a =&gt; a.c))];</p>
+<p>*** activeCat = &quot;All&quot;;</p>
+<p>let searchTerm = &quot;&quot;;</p>
+<p><br></p>
+<p>function initials(name) {</p>
+<p>&nbsp; return name.split(&quot; &quot;).slice(0,2).map(w=&gt;w[0]).join(&quot;&quot;).toUpperCase();</p>
+<p>}</p>
+<p>function colorFor(cat) {</p>
+<p>&nbsp; return palette[categories.indexOf(cat) % palette.length];</p>
+<p>}</p>
+<p><br></p>
+<p>function renderChips() {</p>
+<p>&nbsp; ***** chipsEl = document.getElementById(&quot;chips&quot;);</p>
+<p>&nbsp; chipsEl.innerHTML = &quot;&quot;;</p>
+<p>&nbsp; categories.forEach(cat =&gt; {</p>
+<p>&nbsp; &nbsp; const chip = document.createElement(&quot;div&quot;);</p>
+<p>&nbsp; &nbsp; chip.className = &quot;chip&quot; + (*** === activeCat ? &quot; active&quot; : &quot;&quot;);</p>
+<p>&nbsp; &nbsp; chip.textContent = cat;</p>
+<p>&nbsp; &nbsp; chip.onclick = () =&gt; { activeCat = cat; renderChips(); renderApps(); };</p>
+<p>&nbsp; &nbsp; chipsEl.appendChild(chip);</p>
+<p>&nbsp; });</p>
+<p>}</p>
+<p><br></p>
+<p>function renderApps() {</p>
+<p>&nbsp; ***** grid = document.getElementById(&quot;appGrid&quot;);</p>
+<p>&nbsp; const filtered = apps.filter(a =&gt; {</p>
+<p>&nbsp; &nbsp; ***** matchCat = activeCat === &quot;All&quot; || a.c === activeCat;</p>
+<p>&nbsp; &nbsp; const matchSearch = a.n.toLowerCase().includes(searchTerm.toLowerCase()) ||</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;a.d.toLowerCase().includes(searchTerm.toLowerCase());</p>
+<p>&nbsp; &nbsp; return matchCat &amp;&amp; matchSearch;</p>
+<p>&nbsp; });</p>
+<p>&nbsp; document.getElementById(&quot;count&quot;).textContent = filtered.length;</p>
+<p>&nbsp; grid.innerHTML = filtered.length ? &quot;&quot; : &apos;&lt;div class=&quot;empty&quot;&gt;No apps found&lt;/div&gt;&apos;;</p>
+<p>&nbsp; filtered.forEach(a =&gt; {</p>
+<p>&nbsp; &nbsp; const card = document.createElement(&quot;div&quot;);</p>
+<p>&nbsp; &nbsp; card.className = &quot;app-card&quot;;</p>
+<p>&nbsp; &nbsp; card.innerHTML = `</p>
+<p>&nbsp; &nbsp; &nbsp; &lt;div class=&quot;app-icon&quot; style=&quot;background:${colorFor(a.c)}&quot;&gt;${initials(a.n)}&lt;/div&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &lt;*** class=&quot;app-info&quot;&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;cat&quot;&gt;${a.c}&lt;/div&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;name&quot;&gt;${a.n}&lt;/div&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;desc&quot;&gt;${a.d}&lt;/div&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &lt;/div&gt;`;</p>
+<p>&nbsp; &nbsp; grid.appendChild(card);</p>
+<p>&nbsp; });</p>
+<p>}</p>
+<p><br></p>
+<p>document.getElementById(&quot;search&quot;).addEventListener(&quot;input&quot;, e =&gt; {</p>
+<p>&nbsp; searchTerm = e.target.value;</p>
+<p>&nbsp; renderApps();</p>
+<p>});</p>
+<p><br></p>
+<p>document.getElementById(&quot;themeToggle&quot;).addEventListener(&quot;click&quot;, () =&gt; {</p>
+<p>&nbsp; ***** html = document.documentElement;</p>
+<p>&nbsp; ***** isDark = html.getAttribute(&quot;data-theme&quot;) === &quot;dark&quot;;</p>
+<p>&nbsp; html.setAttribute(&quot;data-theme&quot;, isDark ? &quot;light&quot; : &quot;dark&quot;);</p>
+<p>&nbsp; document.getElementById(&quot;themeToggle&quot;).textContent = ****** ? &quot;🌙&quot; : &quot;☀️&quot;;</p>
+<p>});</p>
+<p><br></p>
+<p>function updateClock() {</p>
+<p>&nbsp; const *** = new Date();</p>
+<p>&nbsp; document.getElementById(&quot;clock&quot;).*********** =</p>
+<p>&nbsp; &nbsp; now.toLocaleTimeString([], {hour:&apos;2-digit&apos;, minute:&apos;2-digit&apos;});</p>
+<p>&nbsp; document.getElementById(&quot;date&quot;).textContent =</p>
+<p>&nbsp; &nbsp; now.toLocaleDateString([], {weekday:&apos;long&apos;, month:&apos;long&apos;, day:&apos;numeric&apos;});</p>
+<p>}</p>
+<p>setInterval(updateClock, 1000);</p>
+<p>updateClock();</p>
+<p><br></p>
+<p>renderChips();</p>
+<p>renderApps();</p>
+<p>&lt;/script&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<p>```</p>
+<div style="color: red">Word to HTML trial - please <a href="https://wordtohtml.net/site/payment">Go PRO</a> to get whole HTML.</div>
